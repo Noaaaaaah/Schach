@@ -1,6 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
+using System.Text;
+
+//  Version 1.01
+//  24.08.2022
+//  Klasse dient als Schachbrett und ist noch im Aufbau.
 
 public class Feld : MonoBehaviour
 {
@@ -37,21 +44,69 @@ public class Feld : MonoBehaviour
     public Spielfiguren DameS; 
     public Spielfiguren KönigW;
     public Spielfiguren KönigS;
+    
+    public GameObject Punkt;
+
+    //  die beiden Variablen stellen fest, welches Feld momentan ausgesucht ist, 
+    //  damit die Figuren ihre möglichen Züge anzeigen, falls sie ausgesucht sind.
+    public int selectedFeldX = 0;
+    public int selectedFeldY = 0;
+
+    public PunktSelFel PunktSelFel;
     // Start is called before the first frame update
     void Start()
     {
-
         ErstelleFeld();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        SelectedFeld();
+    }
+
+    void SelectedFeld()
+    {
+        if(Input.GetButtonDown("Up"))
+        {   
+            if(selectedFeldY != 7)
+            {
+                selectedFeldY ++;
+                PunktSelFel.movement('u');
+            }
+        }
+        else 
+        if(Input.GetButtonDown("Down"))
+        {   
+            if(selectedFeldY != 0)
+            {
+                selectedFeldY --;
+            }
+        }
+        else
+        if(Input.GetButtonDown("Left"))
+        {   
+            if(selectedFeldX != 0)
+            {
+                selectedFeldX --;
+            }
+        }
+        else 
+        if(Input.GetButtonDown("Right"))
+        {
+            if(selectedFeldX != 7)
+            {
+                selectedFeldX ++;
+            }
+        }
+
     }
 
     void ErstelleFeld()
     {
+
+        Instantiate(PunktSelFel);
+
         Spielfeld[0, 0] = TurmW1;
         aktPos(TurmW1);
         TurmW1.Farbe = 1;
@@ -104,43 +159,59 @@ public class Feld : MonoBehaviour
         //farbe ändern Schwarz = 0
         Spielfeld[0, 7] = TurmS1;
         aktPos(TurmS1);
+        TurmS1.Farbe = 0;
         Spielfeld[1, 7] = SpringerS1;
         aktPos(SpringerS1);
+        SpringerS1.Farbe = 0;
         Spielfeld[2, 7] = LäuferS1;
         aktPos(LäuferS1);
+        LäuferS1.Farbe = 0;
         Spielfeld[3, 7] = DameS;
         aktPos(DameS);
+        DameS.Farbe = 0;
         Spielfeld[4, 7] = KönigS;
         aktPos(KönigS);
+        KönigS.Farbe = 0;
         Spielfeld[5, 7] = LäuferS2;
         aktPos(LäuferS2);
+        LäuferS2.Farbe = 0;
         Spielfeld[6, 7] = SpringerS2;
         aktPos(SpringerS2);
+        SpringerS2.Farbe = 0;
         Spielfeld[7, 7] = TurmS2;
         aktPos(TurmS2);
+        TurmS2.Farbe = 0;
         Spielfeld[0, 6] = BauerS1;
         aktPos(BauerS1);
+        BauerS1.Farbe = 0;
         Spielfeld[1, 6] = BauerS2;
         aktPos(BauerS2);
+        BauerS2.Farbe = 0;
         Spielfeld[2, 6] = BauerS3;
         aktPos(BauerS3);
+        BauerS3.Farbe = 0;
         Spielfeld[3, 6] = BauerS4;
         aktPos(BauerS4);
+        BauerS4.Farbe = 0;
         Spielfeld[4, 6] = BauerS5;
         aktPos(BauerS5);
+        BauerS5.Farbe = 0;
         Spielfeld[5, 6] = BauerS6;
         aktPos(BauerS6);
+        BauerS6.Farbe = 0;
         Spielfeld[6, 6] = BauerS7;
         aktPos(BauerS7);
+        BauerS7.Farbe = 0;
         Spielfeld[7, 6] = BauerS8;
         aktPos(BauerS8);
+        BauerS8.Farbe = 0;
     }
     void aktualisiereFeld()
     { 
     
     }
 
-    bool FeldBesetzt(int x, int y) 
+    public bool FeldBesetzt(int x, int y) 
     {
         if (Spielfeld[x, y] == null)
         {
@@ -154,15 +225,22 @@ public class Feld : MonoBehaviour
 
     void aktPos(Spielfiguren S)
     {
-        for (int i = 0; i <= 8; i++)
+        if(S == null)
         {
-            for (int j = 0; j <= 8; j++)
+            Console.WriteLine("Fehler 01");
+        }
+        else
+        {
+            for (int i = 0; i <= 8; i++)
             {
-                if (Spielfeld[i, j] == S)
+                for (int j = 0; j <= 8; j++)
                 {
-                    S.PosX = i;
-                    S.PosY = j;
-                    break;
+                    if (Spielfeld[i, j] == S)
+                    {
+                        S.PosX = i;
+                        S.PosY = j;
+                        break;
+                    }
                 }
             }        
         }

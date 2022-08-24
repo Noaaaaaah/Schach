@@ -7,6 +7,7 @@ public class Spielfiguren : MonoBehaviour
     public int PosX;
     public int PosY;
     public int Farbe; 
+    public Feld Spielfeld;
     // Start is called before the first frame update
     void Start()
     {
