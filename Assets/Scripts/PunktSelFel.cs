@@ -16,7 +16,7 @@ public class PunktSelFel : MonoBehaviour
         
     }
 
-    public void movement(float direction)
+    public void movement(char direction)
     {
         if(direction == 'u')
         {
@@ -25,7 +25,7 @@ public class PunktSelFel : MonoBehaviour
         else
         if(direction == 'd')
         {
-            transform.Translate(Vector3.down * 10);
+            transform.Translate(Vector3.up * -10);
         }
         else
         if(direction == 'r')
@@ -35,7 +35,7 @@ public class PunktSelFel : MonoBehaviour
         else 
         if(direction == 'l')
         {
-            transform.Translate(Vector3.left * 10);
+            transform.Translate(Vector3.right * -10);
         }
     }
 }

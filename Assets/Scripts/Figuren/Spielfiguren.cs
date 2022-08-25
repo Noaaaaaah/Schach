@@ -20,8 +20,8 @@ public class Spielfiguren : MonoBehaviour
         
     }
 
-    void möglicheZüge()
-    { 
-        
+    public bool[,] möglicheZüge()
+    {
+        return null;
     }
 }

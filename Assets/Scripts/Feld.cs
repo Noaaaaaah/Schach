@@ -46,6 +46,7 @@ public class Feld : MonoBehaviour
     public Spielfiguren KönigS;
     
     public GameObject Punkt;
+    public pZüge cpZüge;
 
     //  die beiden Variablen stellen fest, welches Feld momentan ausgesucht ist, 
     //  damit die Figuren ihre möglichen Züge anzeigen, falls sie ausgesucht sind.
@@ -63,16 +64,36 @@ public class Feld : MonoBehaviour
     void Update()
     {
         SelectedFeld();
+        bestätigeFeld();
     }
-
+    void bestätigeFeld()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            Spielfiguren selFig = Spielfeld[selectedFeldX, selectedFeldY];
+            bool[,] bpZüge = selFig.möglicheZüge();
+            for (int i = 0; i <= 7; i++)
+            {
+                for (int j = 0; j <= 7; j++)
+                {
+                    if (bpZüge[i, j])
+                    {
+                        pZüge p = Instantiate(cpZüge);
+                        p.movement(i,j);
+                    }
+                }
+            }
+        }
+    }
     void SelectedFeld()
     {
         if(Input.GetButtonDown("Up"))
         {   
             if(selectedFeldY != 7)
             {
-                selectedFeldY ++;
+                selectedFeldY++;
                 PunktSelFel.movement('u');
+                Console.WriteLine(selectedFeldY);
             }
         }
         else 
@@ -81,6 +102,7 @@ public class Feld : MonoBehaviour
             if(selectedFeldY != 0)
             {
                 selectedFeldY --;
+                PunktSelFel.movement('d');
             }
         }
         else
@@ -89,6 +111,7 @@ public class Feld : MonoBehaviour
             if(selectedFeldX != 0)
             {
                 selectedFeldX --;
+                PunktSelFel.movement('l');
             }
         }
         else 
@@ -97,6 +120,7 @@ public class Feld : MonoBehaviour
             if(selectedFeldX != 7)
             {
                 selectedFeldX ++;
+                PunktSelFel.movement('r');
             }
         }
 
@@ -104,8 +128,6 @@ public class Feld : MonoBehaviour
 
     void ErstelleFeld()
     {
-
-        Instantiate(PunktSelFel);
 
         Spielfeld[0, 0] = TurmW1;
         aktPos(TurmW1);

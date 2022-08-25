@@ -157,12 +157,12 @@ InputManager:
     positiveButton: left
     altNegativeButton: 
     altPositiveButton: a
-    gravity: 0
+    gravity: 1000
     dead: 0.19
-    sensitivity: 1
+    sensitivity: 1000
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3
@@ -173,12 +173,12 @@ InputManager:
     positiveButton: down
     altNegativeButton: 
     altPositiveButton: s
-    gravity: 0
+    gravity: 1000
     dead: 0.19
-    sensitivity: 1
+    sensitivity: 1000
     snap: 0
     invert: 1
-    type: 2
+    type: 0
     axis: 1
     joyNum: 0
   - serializedVersion: 3
