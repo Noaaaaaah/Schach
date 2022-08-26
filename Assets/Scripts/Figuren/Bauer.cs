@@ -18,52 +18,64 @@ public class Bauer : Spielfiguren
      
     }
 
-    void möglicheZüge()
+    new bool[,] möglicheZüge()
     {   
         bool [,] pZüge = new bool[8,8];
         if(Farbe == 0)
         {
             if(firstZug == true)
             {
-                if(Spielfeld.FeldBesetzt(PosX, PosY + 1))
+                if (PosY >= 6)
                 {
-                    pZüge[PosX,PosY + 1] = true;
-                    if(Spielfeld.FeldBesetzt(PosX, PosY + 2))
+                    if (Spielfeld.FeldBesetzt(PosX, PosY + 1))
                     {
-                        pZüge[PosX, PosY + 2] = true;
+                        pZüge[PosX, PosY + 1] = true;
+                        if (Spielfeld.FeldBesetzt(PosX, PosY + 2))
+                        {
+                            pZüge[PosX, PosY + 2] = true;
+                        }
                     }
                 }
             }
             else
             {
-                 if(Spielfeld.FeldBesetzt(PosX, PosY + 1))
+                if (PosY != 7)
                 {
-                    pZüge[PosX,PosY + 1] = true;
-                }   
+                    if (Spielfeld.FeldBesetzt(PosX, PosY + 1))
+                    {
+                        pZüge[PosX, PosY + 1] = true;
+                    }
+                }
             }
         }
         else
         {
             if(firstZug == true)
             {
-                if(Spielfeld.FeldBesetzt(PosX, PosY - 1))
+                if (PosY <= 1)
                 {
-                    pZüge[PosX,PosY - 1] = true;
-                    if(Spielfeld.FeldBesetzt(PosX, PosY - 2))
+                    if (Spielfeld.FeldBesetzt(PosX, PosY - 1))
                     {
-                        pZüge[PosX, PosY - 2] = true;
+                        pZüge[PosX, PosY - 1] = true;
+                        if (Spielfeld.FeldBesetzt(PosX, PosY - 2))
+                        {
+                            pZüge[PosX, PosY - 2] = true;
+                        }
                     }
                 }
             }
             else
             {
-                 if(Spielfeld.FeldBesetzt(PosX, PosY - 1))
+                if (PosY != 0)
                 {
-                    pZüge[PosX,PosY - 1] = true;
-                }   
+                    if (Spielfeld.FeldBesetzt(PosX, PosY - 1))
+                    {
+                        pZüge[PosX, PosY - 1] = true;
+                    }
+                }
             }
         }
-
+        return pZüge;
 
     }
     
